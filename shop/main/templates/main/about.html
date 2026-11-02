@@ -1,0 +1,134 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Про нас — Мій сайт{% endblock %}
+
+{% block content %}
+
+    <!-- Заголовок -->
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+        <h1 class="display-5 fw-bold">Про нас</h1>
+        <p class="fs-5 text-muted mb-0">
+            Ми — команда, яка створює зручні та сучасні веб-рішення.
+        </p>
+    </div>
+
+    <!-- Хто ми -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Хто ми</h3>
+                    <p class="card-text">
+                        Наша компанія працює на ринку вже понад 10 років. За цей час
+                        ми реалізували десятки проєктів — від невеликих сайтів-візитівок
+                        до складних веб-платформ із власною адміністративною панеллю.
+                    </p>
+                    <p class="card-text">
+                        Ми віримо, що хороший продукт народжується на перетині
+                        технологій та уваги до деталей. Тому приділяємо однаково
+                        багато часу і архітектурі, і зручності для користувача.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">Наша місія</h3>
+                    <p class="card-text">
+                        Робити технології зрозумілими та доступними. Ми допомагаємо
+                        бізнесу зростати завдяки якісним цифровим продуктам.
+                    </p>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">✔️ Прозорість у роботі</li>
+                        <li class="mb-2">✔️ Дотримання строків</li>
+                        <li class="mb-2">✔️ Довгострокова підтримка</li>
+                        <li>✔️ Орієнтація на результат</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Цифри -->
+    <div class="row g-4 mb-4 text-center">
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm h-100 py-4">
+                <div class="fs-2 fw-bold text-primary">10+</div>
+                <div class="text-muted">років на ринку</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm h-100 py-4">
+                <div class="fs-2 fw-bold text-primary">200+</div>
+                <div class="text-muted">реалізованих проєктів</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm h-100 py-4">
+                <div class="fs-2 fw-bold text-primary">50+</div>
+                <div class="text-muted">постійних клієнтів</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm h-100 py-4">
+                <div class="fs-2 fw-bold text-primary">24/7</div>
+                <div class="text-muted">підтримка</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Команда -->
+    <h2 class="mb-4">Наша команда</h2>
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <div class="display-4 mb-2">👩‍💼</div>
+                    <h5 class="card-title">Олена Коваль</h5>
+                    <p class="text-muted mb-1">Засновниця, CEO</p>
+                    <p class="card-text small">
+                        Відповідає за стратегію та розвиток компанії.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <div class="display-4 mb-2">👨‍💻</div>
+                    <h5 class="card-title">Іван Петренко</h5>
+                    <p class="text-muted mb-1">Технічний директор</p>
+                    <p class="card-text small">
+                        Керує розробкою та архітектурою проєктів.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <div class="display-4 mb-2">🎨</div>
+                    <h5 class="card-title">Марія Сидоренко</h5>
+                    <p class="text-muted mb-1">Дизайнерка</p>
+                    <p class="card-text small">
+                        Створює інтерфейси, зручні для людей.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="p-4 mt-4 bg-white rounded-3 shadow-sm text-center">
+        <h3 class="fw-bold mb-2">Маєте ідею?</h3>
+        <p class="text-muted mb-3">Розкажіть нам про неї — і ми допоможемо втілити.</p>
+        <a href="{% url 'main' %}" class="btn btn-primary">Повернутися на головну</a>
+    </div>
+
+{% endblock %}

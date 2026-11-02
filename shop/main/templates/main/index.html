@@ -1,0 +1,57 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Головна — Мій сайт{% endblock %}
+
+{% block content %}
+    <!-- Заголовок -->
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+        <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
+        <p class="fs-5 text-muted">
+            Це проста сторінка, створена за допомогою Bootstrap 5.
+        </p>
+        <a href="{% url 'about' %}" class="btn btn-primary">
+            Детальніше
+        </a>
+    </div>
+
+    <!-- Блоки контенту -->
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Розділ 1</h5>
+                    <p class="card-text">
+                        Тут можна розмістити інформацію про ваш сайт.
+                    </p>
+                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Розділ 2</h5>
+                    <p class="card-text">
+                        Тут можна розмістити новини або корисну інформацію.
+                    </p>
+                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Розділ 3</h5>
+                    <p class="card-text">
+                        Тут можна розмістити додаткові матеріали.
+                    </p>
+                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
