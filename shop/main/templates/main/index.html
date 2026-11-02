@@ -1,4 +1,5 @@
 {% extends 'main/layout.html' %}
+{% load static %}
 
 {% block title %}Головна — Мій сайт{% endblock %}
 
@@ -19,36 +20,39 @@
 
         <div class="col-md-4">
             <div class="card shadow-sm h-100">
+                <img src="{% static 'main/img/sodium-logo.webp' %}" class="card-img-top" alt="Sodium" style="height: 200px; object-fit: contain; padding: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">Розділ 1</h5>
+                    <h5 class="card-title">Sodium</h5>
                     <p class="card-text">
-                        Тут можна розмістити інформацію про ваш сайт.
+                        Оптимізаційний мод, що переписує рушій рендерингу Minecraft: суттєво підвищує FPS, зменшує мікрозатримки та споживання пам'яті без втрати якості зображення.
                     </p>
-                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                    <a href="#" class="btn btn-outline-primary">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card shadow-sm h-100">
+                <img src="{% static 'main/img/create-logo.webp' %}" class="card-img-top" alt="Create" style="height: 200px; object-fit: contain; padding: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">Розділ 2</h5>
+                    <h5 class="card-title">Create</h5>
                     <p class="card-text">
-                        Тут можна розмістити новини або корисну інформацію.
+                        Технічний мод про обертові механізми, шестерні, конвеєри та складну автоматизацію з впізнаваним естетичним стилем у дусі стімпанку.
                     </p>
-                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                    <a href="#" class="btn btn-outline-primary">Детальніше</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card shadow-sm h-100">
+                <img src="{% static 'main/img/iris-logo.webp' %}" class="card-img-top" alt="Iris Shaders" style="height: 200px; object-fit: contain; padding: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">Розділ 3</h5>
+                    <h5 class="card-title">Iris Shaders</h5>
                     <p class="card-text">
-                        Тут можна розмістити додаткові матеріали.
+                        Легкий та швидкий завантажувач шейдерів із підтримкою пакетів для OptiFine та повною сумісністю з Sodium — красива гра без просідань FPS.
                     </p>
-                    <a href="#" class="btn btn-outline-primary">Переглянути</a>
+                    <a href="#" class="btn btn-outline-primary">Детальніше</a>
                 </div>
             </div>
         </div>
