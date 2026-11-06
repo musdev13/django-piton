@@ -1,10 +1,8 @@
 {% extends 'main/layout.html' %}
-{% load static %}
 
 {% block title %}Головна — Мій сайт{% endblock %}
 
 {% block content %}
-    <!-- Заголовок -->
     <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
         <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
         <p class="fs-5 text-muted">
@@ -15,19 +13,9 @@
         </a>
     </div>
 
-    <!-- Блоки контенту -->
     <div class="row g-4">
         {% for mod in mods %}
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100">
-                <img src="{% static mod.logo %}" class="card-img-top" alt="{{ mod.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ mod.name }}</h5>
-                    <p class="card-text">{{ mod.description }}</p>
-                    <a href="{% url 'mod_detail' mod.id %}" class="btn btn-outline-primary">Details</a>
-                </div>
-            </div>
-        </div>
+            {% include 'main/_mod_card.html' %}
         {% endfor %}
     </div>
 {% endblock %}

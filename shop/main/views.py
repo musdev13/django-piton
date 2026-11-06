@@ -73,3 +73,20 @@ def mod_detail(request, mod_id):
     if mod is None:
         raise Http404('Mod not found')
     return render(request, 'main/mod_detail.html', {'mod': mod})
+
+
+def search(request):
+    query = request.GET.get('q', '').strip()
+    results = []
+    if query:
+        q = query.lower()
+        for mod in MODS:
+            haystack = ' '.join([
+                mod['name'],
+                mod['description'],
+                mod['slug'],
+                mod['category'],
+            ]).lower()
+            if q in haystack:
+                results.append(mod)
+    return render(request, 'main/search.html', {'query': query, 'mods': results})

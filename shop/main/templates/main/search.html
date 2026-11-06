@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Пошук — Мій сайт{% endblock %}
+
+{% block content %}
+    <div class="p-4 mb-4 bg-white rounded-3 shadow-sm">
+        <h1 class="h3 mb-1">Результати пошуку</h1>
+        {% if query %}
+            <p class="text-muted mb-0">За запитом «{{ query }}»</p>
+        {% else %}
+            <p class="text-muted mb-0">Введіть запит у полі пошуку вище.</p>
+        {% endif %}
+    </div>
+
+    {% if mods %}
+        <div class="row g-4">
+            {% for mod in mods %}
+                {% include 'main/_mod_card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Нічого не знайдено.
+        </div>
+    {% endif %}
+{% endblock %}
