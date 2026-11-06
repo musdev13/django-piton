@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ mod.name }}</h5>
                     <p class="card-text">{{ mod.description }}</p>
-                    <a href="#" class="btn btn-outline-primary">Детальніше</a>
+                    <a href="{% url 'mod_detail' mod.id %}" class="btn btn-outline-primary">Details</a>
                 </div>
             </div>
         </div>

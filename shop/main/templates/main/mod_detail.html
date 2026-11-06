@@ -1,0 +1,43 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}{{ mod.name }} — Мій сайт{% endblock %}
+
+{% block content %}
+    <!-- Hero -->
+    <div class="p-4 p-md-5 mb-4 rounded-3 shadow-sm text-white bg-dark">
+        <div class="row align-items-center g-4">
+            <div class="col-md-3 text-center">
+                <div class="bg-white rounded-3 p-3 d-inline-block shadow">
+                    <img src="{% static mod.logo %}" alt="{{ mod.name }}" style="width: 120px; height: 120px; object-fit: contain;">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="mb-2">
+                    <span class="badge bg-primary">{{ mod.category }}</span>
+                    <span class="badge bg-secondary">MC {{ mod.mc_version }}</span>
+                    <span class="badge bg-success">⬇ {{ mod.downloads }}</span>
+                </div>
+                <h1 class="display-5 fw-bold mb-2">{{ mod.name }}</h1>
+                <p class="lead text-white-50 mb-3">{{ mod.description }}</p>
+                <a href="#" class="btn btn-primary btn-lg me-2">Завантажити</a>
+                <a href="{% url 'main' %}" class="btn btn-outline-light btn-lg">← Назад до модів</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h3 class="card-title mb-3">Особливості</h3>
+            <ul class="list-group list-group-flush">
+                {% for feature in mod.features %}
+                    <li class="list-group-item d-flex align-items-center">
+                        <span class="text-success me-3 fs-5">✔</span>
+                        <span>{{ feature }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
