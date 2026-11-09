@@ -1,4 +1,6 @@
-from django.http import Http404
+import json
+
+from django.http import Http404, JsonResponse
 from django.shortcuts import render
 
 MODS = [
@@ -90,3 +92,21 @@ def search(request):
             if q in haystack:
                 results.append(mod)
     return render(request, 'main/search.html', {'query': query, 'mods': results})
+
+
+def register(request):
+    return render(request, 'main/register.html')
+
+
+def register_submit(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    try:
+        data = json.loads(request.body)
+    except (ValueError, TypeError):
+        return JsonResponse({'error': 'invalid json'}, status=400)
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+    print(f'[register] username={username!r}, email={email!r}, password={password!r}')
+    return JsonResponse({'message': 'ok', 'username': username, 'email': email})

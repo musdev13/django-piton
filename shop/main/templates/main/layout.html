@@ -46,6 +46,11 @@
                     <input class="form-control me-2" type="search" name="q" value="{{ query|default:'' }}" placeholder="Пошук модів...">
                     <button class="btn btn-outline-light" type="submit">Знайти</button>
                 </form>
+
+                <a href="{% url 'register' %}"
+                   class="btn btn-warning fw-semibold ms-lg-3 mt-2 mt-lg-0{% if request.resolver_match.url_name == 'register' %} active{% endif %}">
+                    Реєстрація
+                </a>
             </div>
         </div>
     </nav>

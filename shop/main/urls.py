@@ -6,4 +6,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('mods/<int:mod_id>/', views.mod_detail, name='mod_detail'),
     path('search/', views.search, name='search'),
+    path('register/', views.register, name='register'),
+    path('register/submit/', views.register_submit, name='register_submit'),
 ]
