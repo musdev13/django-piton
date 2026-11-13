@@ -5,9 +5,6 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     messageBox.innerHTML = "";
 
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    delete data.csrfmiddlewaretoken;
-
     const csrfToken = form.querySelector('[name="csrfmiddlewaretoken"]').value;
     const url = form.dataset.url;
 
@@ -15,10 +12,9 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken
             },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const result = await response.json();
@@ -27,7 +23,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         if (response.ok) {
             messageBox.innerHTML =
                 '<div class="alert alert-success mb-0">Успішно зареєстровано: ' +
-                (result.username || data.username || '') + '</div>';
+                (result.username || '') + '</div>';
             form.reset();
         } else {
             messageBox.innerHTML =

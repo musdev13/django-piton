@@ -1,7 +1,10 @@
 import json
 
+from django.core.exceptions import ValidationError
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
+
+from .services import create_user
 
 MODS = [
     {
@@ -101,12 +104,19 @@ def register(request):
 def register_submit(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'POST only'}, status=405)
+
     try:
-        data = json.loads(request.body)
-    except (ValueError, TypeError):
-        return JsonResponse({'error': 'invalid json'}, status=400)
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
-    print(f'[register] username={username!r}, email={email!r}, password={password!r}')
-    return JsonResponse({'message': 'ok', 'username': username, 'email': email})
+        user = create_user(
+            username=request.POST.get('username', '').strip(),
+            email=request.POST.get('email', '').strip(),
+            password=request.POST.get('password', ''),
+            avatar=request.FILES.get('avatar'),
+        )
+    except ValidationError as exc:
+        return JsonResponse({'error': '; '.join(exc.messages)}, status=400)
+
+    return JsonResponse({
+        'message': 'ok',
+        'username': user.username,
+        'email': user.email,
+    })
