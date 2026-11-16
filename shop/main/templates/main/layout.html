@@ -1,75 +1,99 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Мій сайт{% endblock %}</title>
-
-    <!-- Bootstrap 5 -->
+    <title>{% block title %}Modrinth-like{% endblock %}</title>
     <link href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'main/css/custom.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-light">
-
-    <!-- Меню -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'main' %}">Modrinht</a>
-
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mainMenu">
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'main' %}">
+                <i class="fa-brands fa-modx text-success"></i> Modrinth
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="mainMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'main' %}active{% endif %}"
-                           href="{% url 'main' %}">Головна</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
-                           href="{% url 'about' %}">Про нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Послуги</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Контакти</a>
-                    </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-compass me-1"></i> Discover content</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-server me-1"></i> Host a server</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-download me-1"></i> Get Modrinth App</a></li>
                 </ul>
-
-                <form class="d-flex ms-lg-3 mt-2 mt-lg-0" role="search" action="{% url 'search' %}" method="get">
-                    <input class="form-control me-2" type="search" name="q" value="{{ query|default:'' }}" placeholder="Пошук модів...">
-                    <button class="btn btn-outline-light" type="submit">Знайти</button>
-                </form>
-
-                <a href="{% url 'register' %}"
-                   class="btn btn-warning fw-semibold ms-lg-3 mt-2 mt-lg-0{% if request.resolver_match.url_name == 'register' %} active{% endif %}">
-                    Реєстрація
-                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{% url 'register' %}" class="btn btn-accent"><i class="fa-solid fa-arrow-right-to-bracket me-1"></i> Sign in</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Основний контент -->
-    <main class="container mt-4">
-        {% block content %}{% endblock %}
+    <div class="sub-nav">
+        <div class="container-fluid px-4">
+            <div class="sub-nav-pill">
+                <a href="{% url 'main' %}" class="active">Mods</a>
+                <a href="#">Resource Packs</a>
+                <a href="#">Data Packs</a>
+                <a href="#">Shaders</a>
+                <a href="#">Modpacks</a>
+                <a href="#">Plugins</a>
+                <a href="#">Servers</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container-fluid px-4 mt-2">
+        <div class="row">
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sidebar-panel">
+                    <div class="sidebar-title">Game version <i class="fa-solid fa-chevron-up"></i></div>
+                    <div class="mb-3">
+                        <input type="text" class="search-bar" placeholder="Search..." style="padding: 6px 12px; font-size: 0.9rem;">
+                    </div>
+                    <ul class="sidebar-list">
+                        <li><a href="#">1.21.1</a></li>
+                        <li><a href="#">1.20.6</a></li>
+                        <li><a href="#">1.20.4</a></li>
+                        <li><a href="#">1.20.1</a></li>
+                        <li><a href="#">1.19.4</a></li>
+                        <li><a href="#" class="text-muted"><i class="fa-regular fa-square"></i> Show all versions</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-panel">
+                    <div class="sidebar-title">Loader <i class="fa-solid fa-chevron-up"></i></div>
+                    <ul class="sidebar-list">
+                        <li><a href="#"><i class="fa-solid fa-cube text-warning"></i> Fabric</a></li>
+                        <li><a href="#"><i class="fa-solid fa-hammer text-info"></i> Forge</a></li>
+                        <li><a href="#"><i class="fa-solid fa-hammer text-danger"></i> NeoForge</a></li>
+                        <li><a href="#" class="text-muted"><i class="fa-solid fa-chevron-down"></i> Show more</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-panel">
+                    <div class="sidebar-title">Category <i class="fa-solid fa-chevron-up"></i></div>
+                    <ul class="sidebar-list">
+                        <li><a href="#"><i class="fa-solid fa-compass"></i> Adventure</a></li>
+                        <li><a href="#"><i class="fa-solid fa-gears"></i> Game Mechanics</a></li>
+                        <li><a href="#"><i class="fa-solid fa-book"></i> Library</a></li>
+                        <li><a href="#"><i class="fa-solid fa-bolt"></i> Optimization</a></li>
+                        <li><a href="#"><i class="fa-solid fa-microchip"></i> Technology</a></li>
+                        <li><a href="#"><i class="fa-solid fa-wrench"></i> Utility</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
     </main>
 
-    <!-- Підвал -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <div class="container">
-            <p class="mb-0">© 2026 Мій сайт. Усі права захищені.</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
     <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
-
     {% block extra_js %}{% endblock %}
 </body>
 </html>

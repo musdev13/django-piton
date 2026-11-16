@@ -1,50 +1,36 @@
 {% extends 'main/layout.html' %}
 {% load static %}
 
-{% block title %}{{ mod.name }} — Мій сайт{% endblock %}
+{% block title %}{{ mod.name }} — Modrinth-like{% endblock %}
 
 {% block content %}
-    <!-- Hero -->
-    <div class="p-4 p-md-5 mb-4 rounded-3 shadow-sm text-white bg-dark">
-        <div class="row align-items-center g-4">
-            <div class="col-md-3 text-center">
-                <div class="bg-white rounded-3 p-3 d-inline-block shadow">
-                    <img src="{% static mod.logo %}" alt="{{ mod.name }}" style="width: 120px; height: 120px; object-fit: contain;">
+    <div class="sidebar-panel mb-4" style="background: linear-gradient(135deg, var(--bg-panel) 0%, #1a1c21 100%);">
+        <div class="d-flex gap-4 align-items-center">
+            <img src="{% static mod.logo %}" alt="{{ mod.name }}" style="width: 120px; height: 120px; border-radius: 16px; object-fit: cover; background: #fff;">
+            <div>
+                <h1 class="fw-bold mb-2">{{ mod.name }}</h1>
+                <p class="text-muted mb-3">{{ mod.description }}</p>
+                <div class="d-flex gap-2 mb-3 flex-wrap">
+                    <span class="mod-badge bg-dark border-secondary text-light"><i class="fa-solid fa-tag"></i> {{ mod.category }}</span>
+                    <span class="mod-badge bg-dark border-secondary text-light"><i class="fa-solid fa-gamepad"></i> MC {{ mod.mc_version }}</span>
+                    <span class="mod-badge bg-dark border-secondary text-light"><i class="fa-solid fa-download"></i> {{ mod.downloads }}</span>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="mb-2">
-                    <span class="badge bg-primary">{{ mod.category }}</span>
-                    <span class="badge bg-secondary">MC {{ mod.mc_version }}</span>
-                    <span class="badge bg-success">⬇ {{ mod.downloads }}</span>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-accent px-4"><i class="fa-solid fa-download me-2"></i> Завантажити</button>
+                    <a href="{% url 'main' %}" class="btn btn-outline-light px-4" style="border-color: var(--border-color); color: var(--text-muted);"><i class="fa-solid fa-arrow-left me-2"></i> Назад</a>
                 </div>
-                <h1 class="display-5 fw-bold mb-2">{{ mod.name }}</h1>
-                <p class="lead text-white-50 mb-3">{{ mod.description }}</p>
-                {% if mod.tags.all %}
-                    <div class="mb-3">
-                        {% for tag in mod.tags.all %}
-                            <span class="badge bg-info text-dark me-1">#{{ tag.name }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                <a href="#" class="btn btn-primary btn-lg me-2">Завантажити</a>
-                <a href="{% url 'main' %}" class="btn btn-outline-light btn-lg">← Назад до модів</a>
             </div>
         </div>
     </div>
 
-    <!-- Features -->
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <h3 class="card-title mb-3">Особливості</h3>
-            <ul class="list-group list-group-flush">
-                {% for feature in mod.features %}
-                    <li class="list-group-item d-flex align-items-center">
-                        <span class="text-success me-3 fs-5">✔</span>
-                        <span>{{ feature }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="sidebar-panel">
+        <h3 class="sidebar-title">Особливості</h3>
+        <ul class="list-group list-group-flush">
+            {% for feature in mod.features %}
+                <li class="list-group-item bg-transparent text-light border-secondary d-flex align-items-center px-0">
+                    <i class="fa-solid fa-check text-success me-3"></i> {{ feature }}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

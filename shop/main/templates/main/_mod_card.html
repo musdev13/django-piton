@@ -1,18 +1,24 @@
 {% load static %}
-<div class="col-md-4">
-    <div class="card shadow-sm h-100">
-        <img src="{% static mod.logo %}" class="card-img-top" alt="{{ mod.name }}" style="height: 200px; object-fit: contain; padding: 20px;">
-        <div class="card-body">
-            <h5 class="card-title">{{ mod.name }}</h5>
-            <p class="card-text">{{ mod.description }}</p>
-            {% if mod.tags.all %}
-                <div class="mb-3">
-                    {% for tag in mod.tags.all %}
-                        <span class="badge bg-secondary me-1">{{ tag.name }}</span>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <a href="{% url 'mod_detail' mod.id %}" class="btn btn-outline-primary">Details</a>
+<a href="{% url 'mod_detail' mod.id %}" class="mod-card text-decoration-none">
+    <img src="{% static mod.logo %}" class="mod-icon" alt="{{ mod.name }}">
+    <div class="mod-content">
+        <div class="mod-header">
+            <div>
+                <h5 class="mod-title">{{ mod.name }}</h5>
+                <div class="mod-author">by Author</div>
+            </div>
+            <div class="mod-stats">
+                <div><i class="fa-solid fa-download"></i> {{ mod.downloads }}</div>
+                <div><i class="fa-regular fa-heart"></i> 0</div>
+            </div>
+        </div>
+        <div class="mod-desc">{{ mod.description }}</div>
+        <div class="mod-badges">
+            <span class="mod-badge"><i class="fa-solid fa-gamepad"></i> Client</span>
+            <span class="mod-badge"><i class="fa-solid fa-tag"></i> {{ mod.category }}</span>
+            {% for tag in mod.tags.all|slice:":3" %}
+                <span class="mod-badge">{{ tag.name }}</span>
+            {% endfor %}
         </div>
     </div>
-</div>
+</a>
