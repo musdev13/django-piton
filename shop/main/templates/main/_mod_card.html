@@ -5,6 +5,13 @@
         <div class="card-body">
             <h5 class="card-title">{{ mod.name }}</h5>
             <p class="card-text">{{ mod.description }}</p>
+            {% if mod.tags.all %}
+                <div class="mb-3">
+                    {% for tag in mod.tags.all %}
+                        <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <a href="{% url 'mod_detail' mod.id %}" class="btn btn-outline-primary">Details</a>
         </div>
     </div>

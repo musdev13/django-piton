@@ -14,3 +14,32 @@ class User(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} <{self.email}>'
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class Mod(models.Model):
+    slug = models.SlugField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
+    logo = models.CharField(max_length=255)
+    description = models.TextField()
+    category = models.CharField(max_length=50)
+    mc_version = models.CharField(max_length=20)
+    downloads = models.CharField(max_length=20)
+    features = models.JSONField(default=list)
+    tags = models.ManyToManyField(Tag, related_name='mods', blank=True)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self):
+        return self.name

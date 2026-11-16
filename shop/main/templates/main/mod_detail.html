@@ -20,6 +20,13 @@
                 </div>
                 <h1 class="display-5 fw-bold mb-2">{{ mod.name }}</h1>
                 <p class="lead text-white-50 mb-3">{{ mod.description }}</p>
+                {% if mod.tags.all %}
+                    <div class="mb-3">
+                        {% for tag in mod.tags.all %}
+                            <span class="badge bg-info text-dark me-1">#{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <a href="#" class="btn btn-primary btn-lg me-2">Завантажити</a>
                 <a href="{% url 'main' %}" class="btn btn-outline-light btn-lg">← Назад до модів</a>
             </div>

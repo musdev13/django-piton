@@ -1,72 +1,15 @@
-import json
-
 from django.core.exceptions import ValidationError
-from django.http import Http404, JsonResponse
-from django.shortcuts import render
+from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
+from .models import Mod
 from .services import create_user
-
-MODS = [
-    {
-        'id': 1,
-        'slug': 'sodium',
-        'name': 'Sodium',
-        'logo': 'main/img/sodium-logo.webp',
-        'description': (
-            'Оптимізаційний мод, що переписує рушій рендерингу Minecraft: '
-            'суттєво підвищує FPS, зменшує мікрозатримки та споживання пам\'яті '
-            'без втрати якості зображення.'
-        ),
-        'category': 'Performance',
-        'mc_version': '1.20+',
-        'downloads': '50M+',
-        'features': [
-            'Переписаний рушій рендерингу на основі OpenGL',
-            'Суттєвий приріст FPS на слабких ПК',
-            'Сумісність з більшістю популярних шейдерів',
-        ],
-    },
-    {
-        'id': 2,
-        'slug': 'create',
-        'name': 'Create',
-        'logo': 'main/img/create-logo.webp',
-        'description': (
-            'Технічний мод про обертові механізми, шестерні, конвеєри та складну '
-            'автоматизацію з впізнаваним естетичним стилем у дусі стімпанку.'
-        ),
-        'category': 'Technology',
-        'mc_version': '1.18+',
-        'downloads': '20M+',
-        'features': [
-            'Сотні нових блоків для автоматизації',
-            'Унікальна кінетична механіка (обертання, передачі)',
-            'Естетичний стиль у дусі стімпанку',
-        ],
-    },
-    {
-        'id': 3,
-        'slug': 'iris',
-        'name': 'Iris Shaders',
-        'logo': 'main/img/iris-logo.webp',
-        'description': (
-            'Легкий та швидкий завантажувач шейдерів із підтримкою пакетів для '
-            'OptiFine та повною сумісністю з Sodium — красива гра без просідань FPS.'
-        ),
-        'category': 'Shaders',
-        'mc_version': '1.19+',
-        'downloads': '15M+',
-        'features': [
-            'Повна сумісність із Sodium',
-            'Підтримка OptiFine-шейдерів "з коробки"',
-            'Мінімальний вплив на FPS',
-        ],
-    },
-]
 
 
 def main(request):
-    return render(request, 'main/index.html', {'mods': MODS})
+    mods = Mod.objects.prefetch_related('tags').all()
+    return render(request, 'main/index.html', {'mods': mods})
 
 
 def about(request):
@@ -74,26 +17,25 @@ def about(request):
 
 
 def mod_detail(request, mod_id):
-    mod = next((m for m in MODS if m['id'] == mod_id), None)
-    if mod is None:
-        raise Http404('Mod not found')
+    mod = get_object_or_404(Mod.objects.prefetch_related('tags'), pk=mod_id)
     return render(request, 'main/mod_detail.html', {'mod': mod})
 
 
 def search(request):
     query = request.GET.get('q', '').strip()
-    results = []
+    results = Mod.objects.none()
     if query:
-        q = query.lower()
-        for mod in MODS:
-            haystack = ' '.join([
-                mod['name'],
-                mod['description'],
-                mod['slug'],
-                mod['category'],
-            ]).lower()
-            if q in haystack:
-                results.append(mod)
+        results = (
+            Mod.objects.prefetch_related('tags')
+            .filter(
+                Q(name__icontains=query)
+                | Q(description__icontains=query)
+                | Q(slug__icontains=query)
+                | Q(category__icontains=query)
+                | Q(tags__name__icontains=query)
+            )
+            .distinct()
+        )
     return render(request, 'main/search.html', {'query': query, 'mods': results})
 
 
