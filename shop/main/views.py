@@ -1,8 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import ModForm
 from .models import Mod
 from .services import create_user
 
@@ -10,6 +11,14 @@ from .services import create_user
 def main(request):
     mods = Mod.objects.prefetch_related('tags').all()
     return render(request, 'main/index.html', {'mods': mods})
+
+
+def mod_create(request):
+    form = ModForm(request.POST if request.method == 'POST' else None)
+    if request.method == 'POST' and form.is_valid():
+        mod = form.save()
+        return redirect('mod_detail', mod_id=mod.pk)
+    return render(request, 'main/mod_form.html', {'form': form})
 
 
 def about(request):
